@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Comment CommentText="Production Timer Controller &#xD;&#xA;Web API&#xD;&#xA;Interface">
+    <Position X="0.5" Y="0.5" Height="0.75" Width="1.919" />
+  </Comment>
+  <Class Name="DSBApps.Controllers.ProductionTimerController">
+    <Position X="0.5" Y="1.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AEAIAAAAAIAAQAAAAAAAAAgAAEAEEAACAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\ProductionTimerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DSBApps.Models.ViewModels.ReqSet">
+    <Position X="0.5" Y="5.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Models\ViewModels\Request.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DSBApps.Models.ViewModels.ReqClear">
+    <Position X="3.5" Y="5.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Models\ViewModels\Request.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DSBApps.Models.ViewModels.ReqStart">
+    <Position X="0.5" Y="7.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AEACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ViewModels\Request.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DSBApps.Models.ViewModels.ReqEnd">
+    <Position X="3.5" Y="7.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AEACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Models\ViewModels\Request.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DSBApps.Models.ViewModels.ReqStartPause">
+    <Position X="6.5" Y="5.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAIAgAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Models\ViewModels\Request.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DSBApps.Models.ViewModels.ReqEndPause">
+    <Position X="6.5" Y="7.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAgAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Models\ViewModels\Request.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DSBApps.Models.ViewModels.ResGeneral">
+    <Position X="5.25" Y="1.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Models\ViewModels\Response.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DSBApps.Models.ViewModels.ResProductionInfo">
+    <Position X="5.25" Y="3" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAACAAAAAAAAAAAAAAAAEQAAgAAAAAA=</HashCode>
+      <FileName>Models\ViewModels\Response.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="DSBApps.Models.ViewModels.ResponseStatus">
+    <Position X="8.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAEAAAAYIAAAAAAAAAAAIAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Models\ViewModels\Response.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

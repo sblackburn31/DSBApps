@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Production Timer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="ProjectTimer.css">
+    <!--<link href="Content/bootstrap.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="ProjectTimer.js"></script>
+
+</head>
+<body onload="initializeForm();">
+
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a class="navbar-brand" href="#">Production Timer</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="About.html">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="seedData()">Reset Sample Data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Contact.html">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+
+    <div class="container-fluid">
+
+        <div id="DebugMsg"></div>
+        <div hidden="hidden">
+
+            <div id="place1">
+
+            </div>
+            <div id="place2">
+
+            </div>
+        </div>
+        <div class="row">
+            <!-- Main Controls -->
+            <div class="col-sm-4">
+                <div id="lblProdNumber">
+                    Product Number
+                </div>
+
+                <div>
+                    <span class="prodInput">
+                        <input id="txtProductionNumber" type="text" class="bg-danger" onfocus="prodNumGotFocus()" onchange="prodNumEntered()" />
+                        <input id="btnClear" type="button" value="Clear" class="btn btn-xs" onclick="clearProdNum()" />
+                        <label id="lblProdNumberError" class="text-danger" style="visibility:hidden">Error Message</label>
+
+                    </span>
+                </div>
+
+                <div class="getDetails">
+                    <button type="button" id="btnGetDetails" class="btn btn-link btn-xs" onclick="retrieveProdData">Retrieve Product Details</button>
+                </div>
+
+                <div class="text-right">
+                    <br />
+                    <span>
+                        <label for="selWorkCell" class="selItemWorkCell">Work Cell:</label>
+                        <select id="selWorkCell" name="selWorkCell" class="selItemWorkCell" onselect="selWorkCellChanged()" onchange="selWorkCellChanged()">
+                            <option class="itmWorkCell">Unassigned</option>
+                        </select>
+                    </span>
+                    <br />
+                </div>
+
+                <div>
+                    <br />
+                    <table class="tblProdInfo table-bordered">
+                        <tr>
+                            <td class="prodTitleItemInfo  text-right">Part Number</td>
+                            <td id="PartNumber" class="prodItemInfo"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="prodTitleItemInfo text-right">Description</td>
+                            <td id="PartDescription" class="prodItemInfo"></td>
+                        </tr>
+                        <tr>
+                            <td class="prodTitleItemInfo text-right">Build Quantity</td>
+                            <td id="BuildQuantity" class="prodItemInfo"></td>
+                        </tr>
+                    </table>
+                    <br />
+                </div>
+            </div>
+
+
+            <div class="col-sm-4">
+                <div>
+                    <div id="lblWorkStationId">
+                        Work Station Number
+                    </div>
+                    <div id="numEmpPanel" class="text-center">
+                        <table id="tblNumEmplId" class="tblNumEmp">
+                            <tr>
+                                <td colspan="3">
+                                    <div class="numEmpTitle"># EMPLOYEES</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="button" name="btnNumEmpl1" value="1" id="btnNumEmpl1" class="btnNumEmp cursorPointer" onclick="setNumEmpl('1')"></td>
+                                <td><input type="button" name="btnNumEmpl2" value="2" id="btnNumEmpl2" class="btnNumEmp cursorPointer" onclick="setNumEmpl('2')"></td>
+                                <td><input type="button" name="btnNumEmpl3" value="3" id="btnNumEmpl3" class="btnNumEmp cursorPointer" onclick="setNumEmpl('3')"></td>
+                            </tr>
+                            <tr>
+                                <td><input type="button" name="btnNumEmpl4" value="4" id="btnNumEmpl4" class="btnNumEmp cursorPointer" onclick="setNumEmpl('4')"></td>
+                                <td><input type="button" name="btnNumEmpl5" value="5" id="btnNumEmpl5" class="btnNumEmp cursorPointer" onclick="setNumEmpl('5')"></td>
+                                <td><input type="button" name="btnNumEmpl6" value="6" id="btnNumEmpl6" class="btnNumEmp cursorPointer" onclick="setNumEmpl('6')"></td>
+                            </tr>
+                            <tr>
+                                <td><input type="button" name="btnNumEmpl7" value="7" id="btnNumEmpl7" class="btnNumEmp cursorPointer" onclick="setNumEmpl('7')"></td>
+                                <td><input type="button" name="btnNumEmpl8" value="8" id="btnNumEmpl8" class="btnNumEmp cursorPointer" onclick="setNumEmpl('8')"></td>
+                                <td><input type="button" name="btnNumEmpl9" value="9" id="btnNumEmpl9" class="btnNumEmp cursorPointer" onclick="setNumEmpl('9')"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div></div>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-1 align-bottom text-center" id="lblElapsedTime">hh:mm:ss</div>
+            <div class="col-sm-4"></div>
+            <div></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 text-right">
+                <input id="btnStart" type="button" value="Start" class="btn btn-success cursorPointer" disabled onclick="startIt()" />
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-4 text-left">
+                <input id="btnEnd" type="button" value="End" class="btn cursorPointer" disabled onclick="endIt()" />
+            </div>
+        </div>
+
+        <div>
+            <table id="divDuringDowntime" class=" divPause">
+                <tr>
+                    <th colspan="7" class="titleDuring titlePause text-center"> During Ticket Downtime</th>
+                </tr>
+                <tr>
+                    <td>
+                        <input id="btnDuringBreak" type="button" value="Break" class="psDuring btnPause btn-primary cursorPointer" onclick="setPause('btnDuringBreak', true)" />
+                    </td>
+                    <td>
+                        <input id="btnDuringShif" type="button" value="Shift Change" class="psDuring btnPause btn-primary cursorPointer" onclick="setPause('btnDuringShif', true)" />
+                    </td>
+                    <td>
+                        <input id="btnDuringInv" type="button" value="Inventory" class="psDuring btnPause btn-primary cursorPointer" onclick="setPause('btnDuringInv', true)" />
+                    </td>
+                    <td>
+                        <input id="btnDuringMaint" type="button" value="Maintenance" class="psDuring btnPause btn-primary cursorPointer" onclick="setPause('btnDuringMaint', true)" />
+                    </td>
+                    <td>
+                        <input id="btnDuringQC" type="button" value="QC" class="psDuring btnPause btn-primary cursorPointer" onclick="setPause('btnDuringQC', true)" />
+                    </td>
+                    <td>
+                        <input id="btnDuringHot" type="button" value="Hot Rush" class="psDuring btnPause btn-primary cursorPointer" onclick="setPause('btnDuringHot', true)" />
+                    </td>
+                    <td>
+                        <input id="btnDuringOther" type="button" value="Other" class="psDuring btnPause btn-primary cursorPointer" onclick="setPause('btnDuringOther', true)" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div>
+            <table id="divBetweenDowntime" class=" divPause">
+                <tr>
+                    <th colspan="7" class="titleBetween titlePause text-center">Between Ticket Downtime</th>
+                </tr>
+                <tr>
+                    <td>
+                        <input id="btnBetweenBreak" type="button" value="Break" class="psBetween btnPause btn-primary cursorPointer" onclick="setPause('btnBetweenBreak', false)" />
+                    </td>
+                    <td>
+                        <input id="btnBetweenShif" type="button" value="Shift Change" class="psBetween btnPause btn-primary cursorPointer" onclick="setPause('btnBetweenShif', false)" />
+                    </td>
+                    <td>
+                        <input id="btnBetweenInv" type="button" value="Inventory" class="psBetween btnPause btn-primary cursorPointer" onclick="setPause('btnBetweenInv', false)" />
+                    </td>
+                    <td>
+                        <input id="btnBetweenMaint" type="button" value="Maintenance" class="psBetween btnPause btn-primary cursorPointer" onclick="setPause('btnBetweenMaint', false)" />
+                    </td>
+                    <td>
+                        <input id="btnBetweenQC" type="button" value="QC" class="psBetween btnPause btn-primary cursorPointer" onclick="setPause('btnBetweenQC', false)" />
+                    </td>
+                    <td>
+                        <input id="btnBetweenSuspend" type="button" value="Line Suspended" class="psBetween btnPause btn-primary cursorPointer" onclick="setPause('btnBetweenSuspend', false)" />
+                    </td>
+                    <td>
+                        <input id="btnBetweenOther" type="button" value="Other" class="psBetween btnPause btn-primary cursorPointer" onclick="setPause('btnBetweenOther', false)" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

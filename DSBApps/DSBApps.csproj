@@ -49,6 +49,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -183,78 +184,125 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
-    <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
-    <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
-    <Compile Include="Areas\HelpPage\HelpPageAreaRegistration.cs" />
-    <Compile Include="Areas\HelpPage\HelpPageConfigurationExtensions.cs" />
-    <Compile Include="Areas\HelpPage\ModelDescriptions\CollectionModelDescription.cs" />
-    <Compile Include="Areas\HelpPage\ModelDescriptions\ComplexTypeModelDescription.cs" />
-    <Compile Include="Areas\HelpPage\ModelDescriptions\DictionaryModelDescription.cs" />
-    <Compile Include="Areas\HelpPage\ModelDescriptions\EnumTypeModelDescription.cs" />
-    <Compile Include="Areas\HelpPage\ModelDescriptions\EnumValueDescription.cs" />
-    <Compile Include="Areas\HelpPage\ModelDescriptions\IModelDocumentationProvider.cs" />
-    <Compile Include="Areas\HelpPage\ModelDescriptions\KeyValuePairModelDescription.cs" />
-    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelDescription.cs" />
-    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelDescriptionGenerator.cs" />
-    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelNameAttribute.cs" />
-    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelNameHelper.cs" />
-    <Compile Include="Areas\HelpPage\ModelDescriptions\ParameterAnnotation.cs" />
-    <Compile Include="Areas\HelpPage\ModelDescriptions\ParameterDescription.cs" />
-    <Compile Include="Areas\HelpPage\ModelDescriptions\SimpleTypeModelDescription.cs" />
-    <Compile Include="Areas\HelpPage\Models\HelpPageApiModel.cs" />
-    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleGenerator.cs" />
-    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleKey.cs" />
-    <Compile Include="Areas\HelpPage\SampleGeneration\ImageSample.cs" />
-    <Compile Include="Areas\HelpPage\SampleGeneration\InvalidSample.cs" />
-    <Compile Include="Areas\HelpPage\SampleGeneration\ObjectGenerator.cs" />
-    <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
-    <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
-    <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NotebookAppController.cs" />
+    <Compile Include="Controllers\ProductionTimerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\clearProductionData_Result.cs">
+      <DependentUpon>ProdTimerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NotebookDataRepository.cs" />
+    <Compile Include="Models\INote.cs" />
+    <Compile Include="Models\INotebook.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Metadata.cs" />
+    <Compile Include="Models\NotebookRepository.cs" />
+    <Compile Include="Models\NoteRepository.cs" />
+    <Compile Include="Models\PartialClasses.cs" />
+    <Compile Include="Models\ProdTmrDataRepository.cs" />
+    <Compile Include="Models\endProductionTimer_Result.cs">
+      <DependentUpon>ProdTimerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\getProductionData_Result.cs">
+      <DependentUpon>ProdTimerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IProductionOrder.cs" />
+    <Compile Include="Models\IWorkCell.cs" />
+    <Compile Include="Models\Note.cs">
+      <DependentUpon>ProdTimerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NoteBook.cs">
+      <DependentUpon>ProdTimerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Paused.cs" />
+    <Compile Include="Models\pauseEnd_Result.cs">
+      <DependentUpon>ProdTimerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\pauseStart_Result.cs">
+      <DependentUpon>ProdTimerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProdTimerModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProdTimerModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProdTimerModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProdTimerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProdTimerModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProdTimerModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductionOrder.cs" />
+    <Compile Include="Models\ProductionOrderRepository.cs" />
+    <Compile Include="Models\setProductionOrder_Result.cs">
+      <DependentUpon>ProdTimerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\startProductionTimer_Result.cs">
+      <DependentUpon>ProdTimerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewModels\Request.cs" />
+    <Compile Include="Models\ViewModels\Response.cs" />
+    <Compile Include="Models\vProdOrdInfo.cs">
+      <DependentUpon>ProdTimerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WorkCell.cs">
+      <DependentUpon>ProdTimerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WorkCellRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Providers\ApplicationOAuthProvider.cs" />
-    <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\n1.png" />
+    <Content Include="Content\n6.png" />
+    <Content Include="Content\note2.png" />
+    <Content Include="Content\notelist.png" />
+    <Content Include="Diagrams\ProductionTimerDiagram.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Models\ProdTimerModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ProdTimerModel.edmx</DependentUpon>
+      <LastGenOutput>ProdTimerModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ProdTimerModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ProdTimerModel.edmx</DependentUpon>
+      <LastGenOutput>ProdTimerModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="ProductionTimer\About.html" />
+    <Content Include="ProductionTimer\Contact.html" />
+    <Content Include="ProductionTimer\ProjectTimer.css" />
+    <Content Include="ProductionTimer\ProjectTimer.html" />
+    <Content Include="ProductionTimer\ProjectTimer.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Areas\HelpPage\Views\Web.config" />
-    <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
-    <Content Include="Areas\HelpPage\Views\Help\Index.cshtml" />
-    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TextSample.cshtml" />
-    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\SimpleTypeModelDescription.cshtml" />
-    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Samples.cshtml" />
-    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Parameters.cshtml" />
-    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ModelDescriptionLink.cshtml" />
-    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\KeyValuePairModelDescription.cshtml" />
-    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\InvalidSample.cshtml" />
-    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ImageSample.cshtml" />
-    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
-    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\EnumTypeModelDescription.cshtml" />
-    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\DictionaryModelDescription.cshtml" />
-    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ComplexTypeModelDescription.cshtml" />
-    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
-    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
-    <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <EntityDeploy Include="Models\ProdTimerModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ProdTimerModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ProdTimerModel.edmx.diagram">
+      <DependentUpon>ProdTimerModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Diagrams\ProductionTimerDiagram.cd" />
+    <Content Include="Diagrams\DefaultController.cd" />
+    <Content Include="Diagrams\ProdTmrDB.cd" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -266,20 +314,52 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="SQLScripts\convertId.sql" />
+    <Content Include="SQLScripts\PauseTester.sql" />
+    <Content Include="SQLScripts\RecreateProdTmrDbStruct.sql" />
+    <Content Include="SQLScripts\SeedProdTmrDbTbls.sql" />
+    <Content Include="SQLScripts\SPClearProdOrd.sql" />
+    <Content Include="SQLScripts\SPEndProdOrd.sql" />
+    <Content Include="SQLScripts\SPGetProdOrd.sql" />
+    <Content Include="SQLScripts\SPPauseEnd.sql" />
+    <Content Include="SQLScripts\SPPauseStart.sql" />
+    <Content Include="SQLScripts\SPSeedProdTmrData.sql" />
+    <Content Include="SQLScripts\SPSetProdOrd.sql" />
+    <Content Include="SQLScripts\SPStartProdOrd.sql" />
+    <Content Include="SQLScripts\testSP.sql" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Content\Site.css" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Default\Index.cshtml" />
+    <Content Include="Views\Shared\_DisplayNotePartial.cshtml" />
+    <Content Include="Views\Shared\_EditNotePartial.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\NotebookApp\About.cshtml" />
+    <Content Include="Views\NotebookApp\Contact.cshtml" />
+    <Content Include="Views\NotebookApp\Create.cshtml" />
+    <Content Include="Views\NotebookApp\Delete.cshtml" />
+    <Content Include="Views\NotebookApp\Details.cshtml" />
+    <Content Include="Views\NotebookApp\EditNote.cshtml" />
+    <Content Include="Views\NotebookApp\HelpPage.cshtml" />
+    <Content Include="Views\NotebookApp\Index.cshtml" />
+    <Content Include="Views\NotebookApp\NoteList.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -312,6 +392,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Comment CommentText="Start Up Controller&#xD;&#xA;(DefaultController)">
+    <Position X="0.5" Y="0.5" Height="0.469" Width="1.7" />
+  </Comment>
+  <Comment CommentText="This controller brings up the Welcome/Landing page (Index.csHTML).&#xD;&#xA;&#xD;&#xA;That view controls what Actions are taken to bring up the various Apps that are available.&#xD;&#xA;&#xD;&#xA;The controller's Action Launch Project Timer is used to bring up that web app.">
+    <Position X="0.5" Y="1.125" Height="1.531" Width="3.617" />
+  </Comment>
+  <Class Name="DSBApps.Controllers.DefaultController">
+    <Position X="0.5" Y="2.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAA=</HashCode>
+      <FileName>Controllers\DefaultController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

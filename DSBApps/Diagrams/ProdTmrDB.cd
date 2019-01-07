@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Comment CommentText="Note the rest of the Stored Procedure result classes are exactly like the startProductionTimer&#xD;&#xA;Result class.">
+    <Position X="7.042" Y="13.589" Height="0.75" Width="2.846" />
+  </Comment>
+  <Comment CommentText="Production Order is a class that will be used to hold the results of getProductionData this will be used in future development.">
+    <Position X="4.562" Y="16.646" Height="0.667" Width="2.648" />
+  </Comment>
+  <Comment CommentText="Production Timer &#xD;&#xA;Business Logic Data Model&#xD;&#xA;and Entity Framework Model (from the Business Model side)&#xD;&#xA;&#xD;&#xA;This model shows the Business Logic Model&#xD;&#xA;&#xD;&#xA;This program primarily uses Stored Procedures or views to retrieve and update data in the database.&#xD;&#xA;&#xD;&#xA;Refer to the Production Timer Controller Diagram and the &#xD;&#xA;Production Timer Data Diagram for further information.&#xD;&#xA;&#xD;&#xA;">
+    <Position X="0.5" Y="0.5" Height="1.948" Width="4.377" />
+  </Comment>
+  <Class Name="DSBApps.Models.ProdTmrDataRepository">
+    <Position X="0.5" Y="2.75" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAQAAAAAAAAAAAAAAQAAAAAAAAAAEAA=</HashCode>
+      <FileName>Models\ProdTmrDataRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DSBApps.Models.WorkCellRepository">
+    <Position X="5" Y="3.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\WorkCellRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DSBApps.Models.ProdTimerEntities">
+    <Position X="1" Y="9.25" Width="8.5" />
+    <TypeIdentifier>
+      <HashCode>AMAgAEAAAAAAQAEAAAABACAQEACAAACAAAIAAAAAAAA=</HashCode>
+      <FileName>Models\ProdTimerModel.Context.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DSBApps.Models.setProductionOrder_Result">
+    <Position X="4" Y="13.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAMAAAgAAAAAAgAAAAAAAAAACAAgQAAgAAAAAA=</HashCode>
+      <FileName>Models\setProductionOrder_Result.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DSBApps.Models.startProductionTimer_Result">
+    <Position X="7" Y="14.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Models\startProductionTimer_Result.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DSBApps.Models.vProdOrdInfo">
+    <Position X="1" Y="13.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAIAAAAACAAAIAAgACAAAAAFAACAAAAgAABAAIA=</HashCode>
+      <FileName>Models\vProdOrdInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DSBApps.Models.WorkCell">
+    <Position X="8.5" Y="3.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAQAAAAAAgA=</HashCode>
+      <FileName>Models\WorkCell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DSBApps.Models.ProductionOrderRepository">
+    <Position X="5" Y="6" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>UhAAAAAAAIAAAAAAIAAAAAAAAIAAAQAAAAAAAgAAAAA=</HashCode>
+      <FileName>Models\ProductionOrderRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DSBApps.Models.ProductionOrder">
+    <Position X="0.75" Y="17.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AEAiAAAEAAAgAAAAQAAAAAAAIAAgAAAAAQAAwAAAAAA=</HashCode>
+      <FileName>Models\ProductionOrder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DSBApps.Models.Paused">
+    <Position X="7.25" Y="17.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAIAAAAAAAAAIAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Paused.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="DSBApps.Models.IWorkCell">
+    <Position X="5" Y="2.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\IWorkCell.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DSBApps.Models.IProductionOrder">
+    <Position X="0.75" Y="6.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>UhAAAAAAAIAAAAAAIAAAAAAAAIAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Models\IProductionOrder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="DSBApps.Models.ProductionOrderProcessStatus">
+    <Position X="4.75" Y="17.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAABAMAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ProductionOrder.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

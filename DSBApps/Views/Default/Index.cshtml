@@ -1,0 +1,221 @@
+﻿@* Author: David Scott Blackburn *@
+@* Project: Notebook Demo App *@
+@* Version: 1.0.0 *@
+@* Purpose: This is the base screen for all of the application *@
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="@ViewBag.Description">
+    <meta name="author" content="David Scott Blackburn">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Hub Application</title>
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/site.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body class="landingbackground">
+
+    @*
+        *   This draws the top menu displayed in the project.  It uses
+        *   bootstrap to handle the look and feel of the app.
+        *   This was designed to show the menu icon if the
+        *   top menu items could not be displyed due to the width of the
+        *   browser screen
+    *@
+
+    <div class="container body-content">
+        @*Now create the main view as defined by the view called.*@
+        <div>
+            <div class="row">
+                <div class="jumbotron text-center landingbackground">
+                    <h1>Welcome</h1>
+                    <h3>to</h3>
+                    <h2 class="scriptFont">David Scott Blackburn's</h2>
+                    <h1>Demo Application Page</h1>
+                </div>
+            </div>
+            <hr />
+            <!-- Start of the carousel -->
+            <h2>Who is David Blackburn?</h2>
+            <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                    <li data-target="#myCarousel" data-slide-to="3"></li>
+                    <li data-target="#myCarousel" data-slide-to="4"></li>
+                    <li data-target="#myCarousel" data-slide-to="5"></li>
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    <div class="item carouselItem">
+                        <p>
+                            <h4>
+                                A very flexible worker who is able to perform all phases of software development
+                                from analysis, design and requirement gathering; to coding, testing and implementation;
+                                and to documentation, training and support.
+                            </h4>
+                        </p>
+                    </div>
+                    <div class="item active carouselItem">
+                        <p>
+                            <h4>
+                                Energetic programmer analyst experienced in developing robust code
+                                for high-volume businesses.
+                            </h4>
+                        </p>
+                    </div>
+                    <div class="item carouselItem">
+                        <p>
+                            <h4>Increased customer base by 10% for an online bill pay application.</h4>
+                        </p>
+                    </div>
+                    <div class="item carouselItem">
+                        <p>
+                            <h4>
+                                Improved performance and reliability, while reducing support cost by 40%
+                                of a nationwide complex critical system.
+                            </h4>
+                        </p>
+                    </div>
+                    <div class="item carouselItem">
+                        <p>
+                            <h4>A naturally analytical person with strong problem-solving skills.</h4>
+                        </p>
+                    </div>
+
+                    <div class="item carouselItem">
+                        <p>
+                            <h4>
+                                A friendly, dedicated worker able to work alone with little supervision or as an active
+                                team member who shows initiative and able to do what it takes to get the job done!
+                            </h4>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            <!-- end of the carousel -->
+            <hr />
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="text-center">
+                        @Html.ActionLink("Notebook App", "Index", "NotebookApp", null, new { @class = "btn  btn-primary" })
+                    </div>
+                    <div class="well well-sm bg-info">
+                        <h3>The Notebook App</h3>
+                        <h4>
+                            This is a simple Notebook application that allows one to make and manage
+                            notes
+                            <span id="dots2" style="display:inline">...</span>
+                            <span id="more2" style="display:none">
+                                to themselves, such as grocery lists, information, or ideas that need
+                                to be jot down.
+                                <br />
+                                <br />
+                                This application uses ASP.Net MVC, C#, SQL Server, Entity Framework, Razor,
+                                and Bootstrap
+                            </span>
+                        </h4>
+                        <div class="text-center">
+                                <button id="showMore2" type="button" class="btn btn-info" onclick="myFunction('2')" style="display:inline">
+                                    <span class="glyphicon glyphicon-triangle-bottom"></span> More
+                                </button>
+                                <button id="showLess2" type="button" class="btn btn-info" onclick="myFunction('2')" style="display:none">
+                                    <span class="glyphicon glyphicon-triangle-top"></span> Less
+                                </button>
+                            </div>
+
+                    </div>
+
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-center">
+                        @Html.ActionLink("Production Timer", "LaunchProjectTimer", null, new { @class = "btn  btn-primary" })
+                    </div>
+                    <div class="well well-sm bg-info" style="padding-left:20px">
+                        <h3>Production Time Emulator</h3>
+                        <h4>
+                            This is an emulation of an actual factory production timer
+                            screen
+                            <span id="dots3" style="display:inline">...</span>
+                            <span id="more3" style="display:none">
+                                that is part of a larger and much more sophisticated
+                                system.  This has been presented to show off my programming abilities
+                                in creating a Web Application and to show that I can do Full stack
+                                development.
+                                <br />
+                                <br />
+                                Please use the <strong>About</strong> menu option inside the app to see how to use this program.
+                                <br />
+                                <br />
+                                Technologies used in this application are, on the front-end, JavaScript,
+                                HTML, CSS, AJAX and Bootstrap.  On the back-end, this application makes
+                                REST calls to an ASP.Net MVC Web API that uses C# and Entity Framework
+                                to make calls to a SQL Server database that primarily uses Stored Procedures
+                                to retrieve and update data.
+                            </span>
+                        </h4>
+                        <div class="text-center">
+                            <button id="showMore3" type="button" class="btn btn-info" onclick="myFunction('3')" style="display:inline">
+                                <span class="glyphicon glyphicon-triangle-bottom"></span> More
+                            </button>
+                            <button id="showLess3" type="button" class="btn btn-info" onclick="myFunction('3')" style="display:none">
+                                <span class="glyphicon glyphicon-triangle-top"></span> Less
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        @*Show the standard footer.*@
+        <footer>
+            <p><h6>&copy; @DateTime.Now.Year - Sample ASP.NET MVC 5 Application.</h6></p>
+        </footer>
+    </div>
+
+    <script>
+        function myFunction(which) {
+            var dots = document.getElementById("dots" + which);
+            var moreText = document.getElementById("more" + which);
+            
+            var btnShowMore = document.getElementById("showMore"+ which);
+            var btnShowLess = document.getElementById("showLess" + which);
+
+            if (dots.style.display === "none") {
+                dots.style.display = "inline";
+                
+                moreText.style.display = "none";
+                btnShowLess.style.display = "none";
+                btnShowMore.style.display = "inline";
+            } else {
+                dots.style.display = "none";
+                
+                moreText.style.display = "inline";
+                btnShowMore.style.display = "none";
+                btnShowLess.style.display = "inline";            }
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,458 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ProdTimerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Note">
+          <Key>
+            <PropertyRef Name="NoteId" />
+          </Key>
+          <Property Name="NoteId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NoteBookId" Type="bigint" Nullable="false" />
+          <Property Name="Subject" Type="varchar" MaxLength="80" />
+          <Property Name="NoteText" Type="varchar" MaxLength="500" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NoteBook">
+          <Key>
+            <PropertyRef Name="NotebookId" />
+          </Key>
+          <Property Name="NotebookId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="CurrentNote" Type="bigint" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkCell">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="workAreaId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'davidBBurn22_Notebooks.dbo.vProdOrdInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vProdOrdInfo">
+          <Key>
+            <PropertyRef Name="productionId" />
+            <PropertyRef Name="status" />
+            <PropertyRef Name="statusId" />
+            <PropertyRef Name="productNumber" />
+            <PropertyRef Name="description" />
+            <PropertyRef Name="quantity" />
+          </Key>
+          <Property Name="productionId" Type="bigint" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="statusId" Type="int" Nullable="false" />
+          <Property Name="productNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="workstationId" Type="char" MaxLength="19" />
+          <Property Name="workCell" Type="varchar" MaxLength="20" />
+          <Property Name="numberEmployees" Type="int" />
+          <Property Name="startTime" Type="datetime2" Precision="7" />
+          <Property Name="endTime" Type="datetime2" Precision="7" />
+          <Property Name="duration" Type="int" />
+        </EntityType>
+        <Association Name="FK_Note_ToNoteBook">
+          <End Role="NoteBook" Type="Self.NoteBook" Multiplicity="1" />
+          <End Role="Note" Type="Self.Note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NoteBook">
+              <PropertyRef Name="NotebookId" />
+            </Principal>
+            <Dependent Role="Note">
+              <PropertyRef Name="NoteBookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NoteBook_ToCurrentNote">
+          <End Role="Note" Type="Self.Note" Multiplicity="0..1" />
+          <End Role="NoteBook" Type="Self.NoteBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Note">
+              <PropertyRef Name="NoteId" />
+            </Principal>
+            <Dependent Role="NoteBook">
+              <PropertyRef Name="CurrentNote" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="clearProductionData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductionId" Type="bigint" Mode="In" />
+          <Parameter Name="WSId" Type="char" Mode="In" />
+        </Function>
+        <Function Name="endProductionTimer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductionId" Type="bigint" Mode="In" />
+          <Parameter Name="EndTime" Type="datetime2" Mode="In" />
+          <Parameter Name="WorkCell" Type="varchar" Mode="In" />
+          <Parameter Name="NumEmpl" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getProductionData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductionId" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="pauseEnd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductionId" Type="bigint" Mode="In" />
+          <Parameter Name="EndTime" Type="datetime2" Mode="In" />
+          <Parameter Name="WorkstationId" Type="char" Mode="In" />
+        </Function>
+        <Function Name="pauseStart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductionId" Type="bigint" Mode="In" />
+          <Parameter Name="StartTime" Type="datetime2" Mode="In" />
+          <Parameter Name="Reason" Type="varchar" Mode="In" />
+          <Parameter Name="WorkstationId" Type="char" Mode="In" />
+        </Function>
+        <Function Name="seedProductionData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="setProductionOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductionId" Type="bigint" Mode="In" />
+          <Parameter Name="WSId" Type="char" Mode="In" />
+        </Function>
+        <Function Name="startProductionTimer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductionId" Type="bigint" Mode="In" />
+          <Parameter Name="StartTime" Type="datetime2" Mode="In" />
+          <Parameter Name="WorkCell" Type="varchar" Mode="In" />
+          <Parameter Name="NumEmpl" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="ProdTimerModelStoreContainer">
+          <EntitySet Name="Note" EntityType="Self.Note" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NoteBook" EntityType="Self.NoteBook" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkCell" EntityType="Self.WorkCell" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vProdOrdInfo" EntityType="Self.vProdOrdInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vProdOrdInfo].[productionId] AS [productionId], 
+    [vProdOrdInfo].[status] AS [status], 
+    [vProdOrdInfo].[statusId] AS [statusId], 
+    [vProdOrdInfo].[productNumber] AS [productNumber], 
+    [vProdOrdInfo].[description] AS [description], 
+    [vProdOrdInfo].[quantity] AS [quantity], 
+    [vProdOrdInfo].[workstationId] AS [workstationId], 
+    [vProdOrdInfo].[workCell] AS [workCell], 
+    [vProdOrdInfo].[numberEmployees] AS [numberEmployees], 
+    [vProdOrdInfo].[startTime] AS [startTime], 
+    [vProdOrdInfo].[endTime] AS [endTime], 
+    [vProdOrdInfo].[duration] AS [duration]
+    FROM [dbo].[vProdOrdInfo] AS [vProdOrdInfo]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Note_ToNoteBook" Association="Self.FK_Note_ToNoteBook">
+            <End Role="NoteBook" EntitySet="NoteBook" />
+            <End Role="Note" EntitySet="Note" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NoteBook_ToCurrentNote" Association="Self.FK_NoteBook_ToCurrentNote">
+            <End Role="Note" EntitySet="Note" />
+            <End Role="NoteBook" EntitySet="NoteBook" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProdTimerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="WorkCell">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="workAreaId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vProdOrdInfo">
+          <Key>
+            <PropertyRef Name="productionId" />
+            <PropertyRef Name="status" />
+            <PropertyRef Name="statusId" />
+            <PropertyRef Name="productNumber" />
+            <PropertyRef Name="description" />
+            <PropertyRef Name="quantity" />
+          </Key>
+          <Property Name="productionId" Type="Int64" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="statusId" Type="Int32" Nullable="false" />
+          <Property Name="productNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="workstationId" Type="String" MaxLength="19" FixedLength="true" Unicode="false" />
+          <Property Name="workCell" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="numberEmployees" Type="Int32" />
+          <Property Name="startTime" Type="DateTime" Precision="7" />
+          <Property Name="endTime" Type="DateTime" Precision="7" />
+          <Property Name="duration" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="ProdTimerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="WorkCells" EntityType="Self.WorkCell" />
+          <EntitySet Name="vProdOrdInfoes" EntityType="Self.vProdOrdInfo" />
+          <FunctionImport Name="clearProductionData" ReturnType="Collection(ProdTimerModel.clearProductionData_Result)">
+            <Parameter Name="ProductionId" Mode="In" Type="Int64" />
+            <Parameter Name="WSId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="endProductionTimer" ReturnType="Collection(ProdTimerModel.endProductionTimer_Result)">
+            <Parameter Name="ProductionId" Mode="In" Type="Int64" />
+            <Parameter Name="EndTime" Mode="In" Type="DateTime" />
+            <Parameter Name="WorkCell" Mode="In" Type="String" />
+            <Parameter Name="NumEmpl" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getProductionData" EntitySet="vProdOrdInfoes" ReturnType="Collection(ProdTimerModel.vProdOrdInfo)">
+          <Parameter Name="ProductionId" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="pauseEnd" ReturnType="Collection(ProdTimerModel.pauseEnd_Result)">
+            <Parameter Name="ProductionId" Mode="In" Type="Int64" />
+            <Parameter Name="EndTime" Mode="In" Type="DateTime" />
+            <Parameter Name="WorkstationId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pauseStart" ReturnType="Collection(ProdTimerModel.pauseStart_Result)">
+            <Parameter Name="ProductionId" Mode="In" Type="Int64" />
+            <Parameter Name="StartTime" Mode="In" Type="DateTime" />
+            <Parameter Name="Reason" Mode="In" Type="String" />
+            <Parameter Name="WorkstationId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="seedProductionData" />
+          <FunctionImport Name="setProductionOrder" ReturnType="Collection(ProdTimerModel.setProductionOrder_Result)">
+            <Parameter Name="ProductionId" Mode="In" Type="Int64" />
+            <Parameter Name="WSId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="startProductionTimer" ReturnType="Collection(ProdTimerModel.startProductionTimer_Result)">
+            <Parameter Name="ProductionId" Mode="In" Type="Int64" />
+            <Parameter Name="StartTime" Mode="In" Type="DateTime" />
+            <Parameter Name="WorkCell" Mode="In" Type="String" />
+            <Parameter Name="NumEmpl" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Notes" EntityType="ProdTimerModel.Note" />
+          <EntitySet Name="NoteBooks" EntityType="ProdTimerModel.NoteBook" />
+          <AssociationSet Name="FK_Note_ToNoteBook" Association="ProdTimerModel.FK_Note_ToNoteBook">
+            <End Role="NoteBook" EntitySet="NoteBooks" />
+            <End Role="Note" EntitySet="Notes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NoteBook_ToCurrentNote" Association="ProdTimerModel.FK_NoteBook_ToCurrentNote">
+            <End Role="Note" EntitySet="Notes" />
+            <End Role="NoteBook" EntitySet="NoteBooks" />
+          </AssociationSet>
+        </EntityContainer>
+        <ComplexType Name="clearProductionData_Result">
+          <Property Type="Int32" Name="ReturnCode" Nullable="true" />
+          <Property Type="String" Name="ReturnMessage" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="endProductionTimer_Result">
+          <Property Type="Int32" Name="ReturnCode" Nullable="true" />
+          <Property Type="String" Name="ReturnMessage" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="getProductionData_Result">
+          <Property Type="Int64" Name="productionId" Nullable="false" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="statusId" Nullable="false" />
+          <Property Type="String" Name="productNumber" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="quantity" Nullable="false" />
+          <Property Type="String" Name="workstationId" Nullable="true" MaxLength="19" />
+          <Property Type="String" Name="workCell" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="numberEmployees" Nullable="true" />
+          <Property Type="DateTime" Name="startTime" Nullable="true" />
+          <Property Type="DateTime" Name="endTime" Nullable="true" />
+          <Property Type="Int32" Name="duration" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pauseEnd_Result">
+          <Property Type="Int32" Name="ReturnCode" Nullable="true" />
+          <Property Type="String" Name="ReturnMessage" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="pauseStart_Result">
+          <Property Type="Int32" Name="ReturnCode" Nullable="true" />
+          <Property Type="String" Name="ReturnMessage" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="setProductionOrder_Result">
+          <Property Type="Int32" Name="ReturnCode" Nullable="true" />
+          <Property Type="String" Name="ReturnMessage" Nullable="true" MaxLength="255" />
+          <Property Type="Int64" Name="ProductionId" Nullable="true" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="StatusId" Nullable="true" />
+          <Property Type="String" Name="ProductNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Quantity" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="startProductionTimer_Result">
+          <Property Type="Int32" Name="ReturnCode" Nullable="true" />
+          <Property Type="String" Name="ReturnMessage" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <EntityType Name="Note">
+          <Key>
+            <PropertyRef Name="NoteId" />
+          </Key>
+          <Property Name="NoteId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NoteBookId" Type="Int64" Nullable="false" />
+          <Property Name="Subject" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="NoteText" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="NoteBook" Relationship="ProdTimerModel.FK_Note_ToNoteBook" FromRole="Note" ToRole="NoteBook" />
+          <NavigationProperty Name="NoteBooks" Relationship="ProdTimerModel.FK_NoteBook_ToCurrentNote" FromRole="Note" ToRole="NoteBook" />
+        </EntityType>
+        <EntityType Name="NoteBook">
+          <Key>
+            <PropertyRef Name="NotebookId" />
+          </Key>
+          <Property Name="NotebookId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="CurrentNote" Type="Int64" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Notes" Relationship="ProdTimerModel.FK_Note_ToNoteBook" FromRole="NoteBook" ToRole="Note" />
+          <NavigationProperty Name="Note" Relationship="ProdTimerModel.FK_NoteBook_ToCurrentNote" FromRole="NoteBook" ToRole="Note" />
+        </EntityType>
+        <Association Name="FK_Note_ToNoteBook">
+          <End Type="ProdTimerModel.NoteBook" Role="NoteBook" Multiplicity="1" />
+          <End Type="ProdTimerModel.Note" Role="Note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NoteBook">
+              <PropertyRef Name="NotebookId" />
+            </Principal>
+            <Dependent Role="Note">
+              <PropertyRef Name="NoteBookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NoteBook_ToCurrentNote">
+          <End Type="ProdTimerModel.Note" Role="Note" Multiplicity="0..1" />
+          <End Type="ProdTimerModel.NoteBook" Role="NoteBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Note">
+              <PropertyRef Name="NoteId" />
+            </Principal>
+            <Dependent Role="NoteBook">
+              <PropertyRef Name="CurrentNote" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProdTimerModelStoreContainer" CdmEntityContainer="ProdTimerEntities">
+          <EntitySetMapping Name="WorkCells">
+            <EntityTypeMapping TypeName="ProdTimerModel.WorkCell">
+              <MappingFragment StoreEntitySet="WorkCell">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="workAreaId" ColumnName="workAreaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vProdOrdInfoes">
+            <EntityTypeMapping TypeName="ProdTimerModel.vProdOrdInfo">
+              <MappingFragment StoreEntitySet="vProdOrdInfo">
+                <ScalarProperty Name="productionId" ColumnName="productionId" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="statusId" ColumnName="statusId" />
+                <ScalarProperty Name="productNumber" ColumnName="productNumber" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="workstationId" ColumnName="workstationId" />
+                <ScalarProperty Name="workCell" ColumnName="workCell" />
+                <ScalarProperty Name="numberEmployees" ColumnName="numberEmployees" />
+                <ScalarProperty Name="startTime" ColumnName="startTime" />
+                <ScalarProperty Name="endTime" ColumnName="endTime" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="clearProductionData" FunctionName="ProdTimerModel.Store.clearProductionData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProdTimerModel.clearProductionData_Result">
+                <ScalarProperty Name="ReturnCode" ColumnName="ReturnCode" />
+                <ScalarProperty Name="ReturnMessage" ColumnName="ReturnMessage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="endProductionTimer" FunctionName="ProdTimerModel.Store.endProductionTimer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProdTimerModel.endProductionTimer_Result">
+                <ScalarProperty Name="ReturnCode" ColumnName="ReturnCode" />
+                <ScalarProperty Name="ReturnMessage" ColumnName="ReturnMessage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getProductionData" FunctionName="ProdTimerModel.Store.getProductionData">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pauseEnd" FunctionName="ProdTimerModel.Store.pauseEnd">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProdTimerModel.pauseEnd_Result">
+                <ScalarProperty Name="ReturnCode" ColumnName="ReturnCode" />
+                <ScalarProperty Name="ReturnMessage" ColumnName="ReturnMessage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pauseStart" FunctionName="ProdTimerModel.Store.pauseStart">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProdTimerModel.pauseStart_Result">
+                <ScalarProperty Name="ReturnCode" ColumnName="ReturnCode" />
+                <ScalarProperty Name="ReturnMessage" ColumnName="ReturnMessage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="seedProductionData" FunctionName="ProdTimerModel.Store.seedProductionData" />
+          <FunctionImportMapping FunctionImportName="setProductionOrder" FunctionName="ProdTimerModel.Store.setProductionOrder">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProdTimerModel.setProductionOrder_Result">
+                <ScalarProperty Name="ReturnCode" ColumnName="ReturnCode" />
+                <ScalarProperty Name="ReturnMessage" ColumnName="ReturnMessage" />
+                <ScalarProperty Name="ProductionId" ColumnName="ProductionId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="ProductNumber" ColumnName="ProductNumber" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="startProductionTimer" FunctionName="ProdTimerModel.Store.startProductionTimer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProdTimerModel.startProductionTimer_Result">
+                <ScalarProperty Name="ReturnCode" ColumnName="ReturnCode" />
+                <ScalarProperty Name="ReturnMessage" ColumnName="ReturnMessage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Notes">
+            <EntityTypeMapping TypeName="ProdTimerModel.Note">
+              <MappingFragment StoreEntitySet="Note">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="NoteText" ColumnName="NoteText" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="NoteBookId" ColumnName="NoteBookId" />
+                <ScalarProperty Name="NoteId" ColumnName="NoteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NoteBooks">
+            <EntityTypeMapping TypeName="ProdTimerModel.NoteBook">
+              <MappingFragment StoreEntitySet="NoteBook">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CurrentNote" ColumnName="CurrentNote" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="NotebookId" ColumnName="NotebookId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,36 +1,70 @@
-﻿<!DOCTYPE html>
+﻿@* Author: David Scott Blackburn *@
+@* Project: Notebook Demo App *@
+@* Version: 2.0.0 *@
+@* Purpose: This is the base screen for all of the application *@
+@using Microsoft.AspNet.Identity
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <meta name="description" content="@ViewBag.Description">
+    <meta name="author" content="David Scott Blackburn">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Notebook Application</title>
+    <link rel="stylesheet" href="~/Content/Site.css" />
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+
 </head>
+
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+
+    @*
+        *   This draws the top menu displayed in the project.  It uses
+        *   bootstrap to handle the look and feel of the app.
+        *   This was designed to show the menu icon if the
+        *   top menu items could not be displyed due to the width of the
+        *   browser screen
+    *@
+    <nav class="navbar navbar-fixed-top nvbar-expand-sm bg-info navbar-light">
+        @* This creates the menu items to be included in the top navigation menu*@
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                @Html.ActionLink("NoteList", "Index", "NotebookApp", new { area = "" }, new { @class = "navbar-brand" })
+                @* This defines the menu appearance *@
+                @* Note the use of  the navbar-toggle, data-toggle, and data-target values.*@
+                @* These values must be as they are, othgerwise the menu icon will not
+                    appear correctly.*@
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapsibleNavbar">
+                    <span class="navbar-inverse icon-bar"></span>
+                    <span class="navbar-inverse icon-bar"></span>
+                    <span class="navbar-inverse icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
             </div>
-            <div class="navbar-collapse collapse">
+            @* These are the links that will define the top menu
+                Note __LoginPartial - This define the Login/Manage/Logout options*@
+            <div class="navbar-collapse collapse" id="collapsibleNavbar">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("About", "About", "NotebookApp")</li>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Contact", "Contact", "NotebookApp")</li>
+                    }
+                    <li>@Html.ActionLink("Help", "HelpPage", "NotebookApp")</li>
+
                 </ul>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
-    </div>
+    </nav>
     <div class="container body-content">
+        @*Now create the main view as defined by the view called.*@
         @RenderBody()
         <hr />
+        @*Show the standard footer.*@
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p><h6>&copy; @DateTime.Now.Year - Sample ASP.NET MVC 5 Application.</h6></p>
         </footer>
     </div>
 

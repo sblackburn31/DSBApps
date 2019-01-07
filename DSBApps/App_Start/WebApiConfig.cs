@@ -1,4 +1,10 @@
-﻿using System;
+﻿/// <project>Demo App</project>
+/// <Version>1.0.0</Version>
+/// <author>David Scott Blackburn</author>
+/// <summary>
+/// </summary>
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -19,6 +25,12 @@ namespace DSBApps
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+
+            config.Routes.MapHttpRoute(
+                name: "ActionApi",
+                routeTemplate: "api/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

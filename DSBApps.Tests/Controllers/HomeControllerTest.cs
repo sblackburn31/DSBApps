@@ -12,7 +12,7 @@ namespace DSBApps.Tests.Controllers
         public void Index()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            DefaultController controller = new DefaultController();
 
             // Act
             ViewResult result = controller.Index() as ViewResult;
