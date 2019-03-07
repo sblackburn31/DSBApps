@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Net.Http;
 using DSBApps.Models;
+using DSBApps.Content;
 
 namespace DSBApps.Controllers
 {
@@ -19,6 +20,9 @@ namespace DSBApps.Controllers
         // GET: Default
         public ActionResult Index()
         {
+            Tracker tracker = new Tracker(Request, Response);
+            tracker.addUsage("DSBburn");
+
             return View();
         }
 

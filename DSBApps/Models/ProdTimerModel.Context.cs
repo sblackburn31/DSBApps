@@ -160,5 +160,22 @@ namespace DSBApps.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<startProductionTimer_Result>("startProductionTimer", productionIdParameter, startTimeParameter, workCellParameter, numEmplParameter);
         }
+    
+        public virtual int addTrackingInfo(string place, string who, string when)
+        {
+            var placeParameter = place != null ?
+                new ObjectParameter("place", place) :
+                new ObjectParameter("place", typeof(string));
+    
+            var whoParameter = who != null ?
+                new ObjectParameter("who", who) :
+                new ObjectParameter("who", typeof(string));
+    
+            var whenParameter = when != null ?
+                new ObjectParameter("when", when) :
+                new ObjectParameter("when", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addTrackingInfo", placeParameter, whoParameter, whenParameter);
+        }
     }
 }

@@ -1,3 +1,4 @@
+use [dsbburndev]
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30,6 +31,7 @@ BEGIN
 		DECLARE @StatusText	VARCHAR(10)
 		DECLARE @ProductNumber VARCHAR(20)
 		DECLARE @Description VARCHAR(50)
+		DECLARE @StadardAsyTime int
 
 		BEGIN TRANSACTION
 
@@ -75,6 +77,7 @@ BEGIN
 				  ,@ProductNumber AS ProductNumber
 				  ,@Description AS Description
 				  ,0 AS Quantity
+				  ,0 AS StadardAsyTime
 		ELSE
 			SELECT @RetStatus AS ReturnCode
 				  ,@RetMessage AS ReturnMessage
@@ -84,6 +87,7 @@ BEGIN
 				  ,[productNumber] AS ProductNumber
 				  ,[description] AS Description
 				  ,[quantity] AS Quantity
+				  ,[stadardAsyTime] AS StadardAsyTime
 			  FROM [dbo].[vProdOrdInfo]
 			  WHERE [productionId] = @convertedId
     END TRY

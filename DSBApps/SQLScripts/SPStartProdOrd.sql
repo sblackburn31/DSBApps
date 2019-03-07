@@ -1,4 +1,4 @@
-use [davidBBurn22_Notebooks]
+use [dsbburndev]
 
 SET ANSI_NULLS ON
 GO

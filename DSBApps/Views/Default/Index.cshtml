@@ -1,7 +1,7 @@
 ﻿@* Author: David Scott Blackburn *@
-@* Project: Notebook Demo App *@
+@* Project: Demo Application Page *@
 @* Version: 1.0.0 *@
-@* Purpose: This is the base screen for all of the application *@
+@* Purpose: This is the Welcome/Landing Web Page for the dsbburn system *@
 @{
     Layout = null;
 }
@@ -22,15 +22,6 @@
 </head>
 
 <body class="landingbackground">
-
-    @*
-        *   This draws the top menu displayed in the project.  It uses
-        *   bootstrap to handle the look and feel of the app.
-        *   This was designed to show the menu icon if the
-        *   top menu items could not be displyed due to the width of the
-        *   browser screen
-    *@
-
     <div class="container body-content">
         @*Now create the main view as defined by the view called.*@
         <div>
@@ -93,7 +84,6 @@
                             <h4>A naturally analytical person with strong problem-solving skills.</h4>
                         </p>
                     </div>
-
                     <div class="item carouselItem">
                         <p>
                             <h4>
@@ -115,6 +105,7 @@
                 </a>
             </div>
             <!-- end of the carousel -->
+
             <hr />
             <div class="row">
                 <div class="col-sm-6">
@@ -137,13 +128,13 @@
                             </span>
                         </h4>
                         <div class="text-center">
-                                <button id="showMore2" type="button" class="btn btn-info" onclick="myFunction('2')" style="display:inline">
-                                    <span class="glyphicon glyphicon-triangle-bottom"></span> More
-                                </button>
-                                <button id="showLess2" type="button" class="btn btn-info" onclick="myFunction('2')" style="display:none">
-                                    <span class="glyphicon glyphicon-triangle-top"></span> Less
-                                </button>
-                            </div>
+                            <button id="showMore2" type="button" class="btn btn-info" onclick="myFunction('2')" style="display:inline">
+                                <span class="glyphicon glyphicon-triangle-bottom"></span> More
+                            </button>
+                            <button id="showLess2" type="button" class="btn btn-info" onclick="myFunction('2')" style="display:none">
+                                <span class="glyphicon glyphicon-triangle-top"></span> Less
+                            </button>
+                        </div>
 
                     </div>
 
@@ -165,7 +156,8 @@
                                 development.
                                 <br />
                                 <br />
-                                Please use the <strong>About</strong> menu option inside the app to see how to use this program.
+                                Please use the <strong>About</strong> menu option inside the app to see how to use this program
+                                and for links to information on how this app was developed.
                                 <br />
                                 <br />
                                 Technologies used in this application are, on the front-end, JavaScript,

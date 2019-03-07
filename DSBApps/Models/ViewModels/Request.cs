@@ -1,5 +1,5 @@
 ﻿/// <project>Production Timer App</project>
-/// <Version>1.0.0</Version>
+/// <Version>2.0.0</Version>
 /// <author>David Scott Blackburn</author>
 /// <summary>
 /// </summary>
@@ -51,5 +51,13 @@ namespace DSBApps.Models.ViewModels
         public long Id { get; set; }
         public string EndPauseString { get; set; }
         public string WorkstationId { get; set; }
+    }
+
+
+    public class ReqTrackingInfo
+    {
+        public string Place { get; set; }
+        public string Who { get; set; }
+        public string WhenTS { get; set; }
     }
 }

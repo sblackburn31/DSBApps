@@ -14,6 +14,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Net;
 using DSBApps.Models;
+using DSBApps.Content;
 
 namespace DSBApps.Controllers
 {
@@ -50,6 +51,9 @@ namespace DSBApps.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
+            Tracker tracker = new Tracker(Request, Response);
+            tracker.addUsage("Notebook");
+
             if (User.Identity.IsAuthenticated)
             {
                 // If someone is signed in redirect to NoteList
@@ -66,6 +70,9 @@ namespace DSBApps.Controllers
         [AllowAnonymous]
         public ActionResult About()
         {
+            Tracker tracker = new Tracker(Request, Response);
+            tracker.addUsage("NotebookAbout");
+
             ViewBag.Message = "The application description page.";
 
             return View("About");
@@ -74,6 +81,9 @@ namespace DSBApps.Controllers
         [AllowAnonymous]
         public ActionResult HelpPage()
         {
+            Tracker tracker = new Tracker(Request, Response);
+            tracker.addUsage("NotebookHelp");
+
             ViewBag.Message = "The Help page.";
 
             return View("HelpPage");
@@ -82,6 +92,9 @@ namespace DSBApps.Controllers
         [Authorize]
         public ActionResult Contact()
         {
+            Tracker tracker = new Tracker(Request, Response);
+            tracker.addUsage("NotebookContact");
+
             ViewBag.Message = "The contact page.";
             return View("Contact");
         }
@@ -101,6 +114,9 @@ namespace DSBApps.Controllers
         [Authorize]
         public ActionResult NoteList()
         {
+            Tracker tracker = new Tracker(Request, Response);
+            tracker.addUsage("NotebookList");
+
             string emailName = User.Identity.Name;
 
             NoteBook aNotebook = dataRepository.NotebookRepository.GetNotebookByEmail(emailName);

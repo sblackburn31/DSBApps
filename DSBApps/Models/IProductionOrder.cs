@@ -21,6 +21,5 @@ namespace DSBApps.Models
         ResGeneral EndTimer(ReqEnd endData);
         ResGeneral PauseStart(ReqStartPause startPauseData);
         ResGeneral PauseEnd(ReqEndPause endPauseData);
-        void SeedData();
     }
 }

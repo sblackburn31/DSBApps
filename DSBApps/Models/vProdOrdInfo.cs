@@ -26,5 +26,6 @@ namespace DSBApps.Models
         public Nullable<System.DateTime> startTime { get; set; }
         public Nullable<System.DateTime> endTime { get; set; }
         public Nullable<int> duration { get; set; }
+        public int stadardAsyTime { get; set; }
     }
 }

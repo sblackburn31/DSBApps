@@ -184,6 +184,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Content\Tracker.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -196,6 +197,7 @@
     <Compile Include="Models\clearProductionData_Result.cs">
       <DependentUpon>ProdTimerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\IDSBBurnGeneral.cs" />
     <Compile Include="Models\NotebookDataRepository.cs" />
     <Compile Include="Models\INote.cs" />
     <Compile Include="Models\INotebook.cs" />
@@ -206,9 +208,6 @@
     <Compile Include="Models\PartialClasses.cs" />
     <Compile Include="Models\ProdTmrDataRepository.cs" />
     <Compile Include="Models\endProductionTimer_Result.cs">
-      <DependentUpon>ProdTimerModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\getProductionData_Result.cs">
       <DependentUpon>ProdTimerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
@@ -258,6 +257,7 @@
     <Compile Include="Models\WorkCell.cs">
       <DependentUpon>ProdTimerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DSBBurnGeneralRepository.cs" />
     <Compile Include="Models\WorkCellRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -271,9 +271,10 @@
     <Content Include="Content\n6.png" />
     <Content Include="Content\note2.png" />
     <Content Include="Content\notelist.png" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="ProductionTimer\ProjectTimer.js" />
     <Content Include="Diagrams\ProductionTimerDiagram.png" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Models\ProdTimerModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -289,9 +290,6 @@
     <Content Include="ProductionTimer\Contact.html" />
     <Content Include="ProductionTimer\ProjectTimer.css" />
     <Content Include="ProductionTimer\ProjectTimer.html" />
-    <Content Include="ProductionTimer\ProjectTimer.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\ProdTimerModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ProdTimerModel.Designer.cs</LastGenOutput>
@@ -302,8 +300,20 @@
     <Content Include="Diagrams\ProductionTimerDiagram.cd" />
     <Content Include="Diagrams\DefaultController.cd" />
     <Content Include="Diagrams\ProdTmrDB.cd" />
+    <Content Include="Documents\Production Timer Client.pdf" />
+    <Content Include="Documents\Production Timer Web API.pdf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -318,6 +328,7 @@
     <Content Include="SQLScripts\PauseTester.sql" />
     <Content Include="SQLScripts\RecreateProdTmrDbStruct.sql" />
     <Content Include="SQLScripts\SeedProdTmrDbTbls.sql" />
+    <Content Include="SQLScripts\SPAddTrackingInfo.sql" />
     <Content Include="SQLScripts\SPClearProdOrd.sql" />
     <Content Include="SQLScripts\SPEndProdOrd.sql" />
     <Content Include="SQLScripts\SPGetProdOrd.sql" />
@@ -363,30 +374,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\bootstrap.min.css.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\bootstrap.css.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css.map" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

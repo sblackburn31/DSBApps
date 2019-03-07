@@ -141,11 +141,18 @@ namespace DSBApps.Controllers
         [ActionName("SeedData")]
         public int SeedData()
         {
-            dataRepo.ProductionOrder.SeedData();
+            dataRepo.DSBBurnGeneral.SeedData();
             return 0;
         }
 
-
+        // POST api/ProductionTimer/Track
+        [HttpPost]
+        [ActionName("Track")]
+        public int PostAddTrackingInfo([FromBody]ReqTrackingInfo theValue)
+        {
+            dataRepo.DSBBurnGeneral.AddTrackingInfo(theValue);
+            return 0;
+        }
 
     }
 }

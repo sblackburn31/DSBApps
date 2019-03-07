@@ -31,6 +31,7 @@ namespace DSBApps.Models
         public String ProductNumber { get; set; }
         public String Description { get; set; }
         public int Quantity { get; set; }
+        public int StadardAsyTime { get; set; }
         public string WorkStationId { get; set; }
         public string WorkCell { get; set; }
         public int NumEmployee { get; set; }

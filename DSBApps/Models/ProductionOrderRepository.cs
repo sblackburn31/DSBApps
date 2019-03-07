@@ -33,6 +33,7 @@ namespace DSBApps.Models
             productionOrder.NumEmployee = ord.numberEmployees ?? 0;
             productionOrder.ProductNumber = ord.productNumber;
             productionOrder.Quantity = ord.quantity;
+            productionOrder.StadardAsyTime = 0;  // public int StadardAsyTime { get; set; }
             productionOrder.Status = (ProductionOrderProcessStatus)Enum.Parse(typeof(ProductionOrderProcessStatus), ord.status);  
             productionOrder.WorkCell = ord.workCell;
             productionOrder.WorkStationId = ord.workstationId;
@@ -54,6 +55,7 @@ namespace DSBApps.Models
                 retData.Description = ord.Description;
                 retData.ProductNumber = ord.ProductNumber;
                 retData.Quantity = ord.Quantity;
+                retData.StadardAsyTime = ord.StadardAsyTime;
             }
             return retData;
         }
@@ -125,11 +127,6 @@ namespace DSBApps.Models
             retData.ReturnStatus = tmp.ReturnCode > (int)ResponseStatus.Error ? ResponseStatus.Error : (ResponseStatus)tmp.ReturnCode;
             retData.StatusText = tmp.ReturnMessage;
             return retData;
-        }
-
-        public void SeedData()
-        {
-            entities.seedProductionData();
         }
 
         #endregion

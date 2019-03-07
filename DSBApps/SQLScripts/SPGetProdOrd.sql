@@ -4,7 +4,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 /****** Object:  StoredProcedure [dbo].[getProductionData]    Script Date: 12/28/2018 8:32:18 AM ******/
-IF OBJECT_ID ( 'setProductionData', 'P' ) IS NOT NULL  
+IF OBJECT_ID ( 'getProductionData', 'P' ) IS NOT NULL  
 	DROP PROCEDURE [dbo].[getProductionData]
 GO
 
@@ -31,6 +31,7 @@ BEGIN
 		  ,[productNumber]
 		  ,[description]
 		  ,[quantity]
+		  ,[stadardAsyTime]
 		  ,[workstationId]
 		  ,[workCell]
 		  ,[numberEmployees]

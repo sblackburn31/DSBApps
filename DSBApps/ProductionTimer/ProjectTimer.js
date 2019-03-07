@@ -31,14 +31,26 @@ function extractCookies() {
     }
 }
 
-function setCookieValue(name, val) {
+function setCookieValue(name, val, useBasePath) {
     var dt = new Date();
     var y = dt.getFullYear();
     y = y + 1;
     dt.setYear(y);
-    var datePart = "; expires=" + dt.toGMTString();
-    document.cookie = name + "=" + val + datePart;
+    var extraPart = "; expires=" + dt.toGMTString() + (useBasePath ? "; path=/" : "");
+    document.cookie = name + "=" + val + extraPart;
     extractCookies();
+}
+function dateToTSString(dt) {
+    var h = dt.getHours();
+    var m = dt.getMinutes();
+    var s = dt.getSeconds() + dt.getMilliseconds() / 1000;
+    var ts = (h < 10 ? "0" + h : h) + ":" + (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+    ts = ts.toString().substring(0, 12);
+    var y = dt.getFullYear();
+    var mm = dt.getMonth() + 1;
+    var dd = dt.getDate();
+    var tt = y + '-' + (mm < 10 ? "0" + mm : mm) + '-' + (dd < 10 ? "0" + dd : dd) + ' ' + ts;
+    return tt;
 }
 
 function toUTCTimeString(tmpTime) {
@@ -91,10 +103,10 @@ function initWorkCells() {
 function selWorkCellChanged() {
     var selList = document.getElementById("selWorkCell");
     if (selList.selectedIndex === 0) {
-        setCookieValue("workCell", "");
+        setCookieValue("workCell", "", false);
     }
     else {
-        setCookieValue("workCell", selList.value);
+        setCookieValue("workCell", selList.value, false);
     }
     if (selList.selectedIndex === 0 && !selList.classList.contains("bg-danger")) {
         selList.classList.add("bg-danger");
@@ -116,7 +128,7 @@ function initNumEmpl() {
     }
     else {
         setNumEmpl("0");
-        setCookieValue("numEmpl", "");
+        setCookieValue("numEmpl", "", false);
     }
 }
 
@@ -131,19 +143,35 @@ function initProdNum() {
     showElapsedTime(false);
     document.getElementById("selWorkCell").removeAttribute("disabled");
     setProdNumAccess();
+    document.getElementById("PartNumber").innerHTML = "";
+    document.getElementById("PartDescription").innerHTML = "";
+    document.getElementById("BuildQuantity").innerHTML = "";
+    document.getElementById("lblStdAsyTime").innerHTML = "";
+    document.getElementById("lblStandardTime").innerHTML = "";
 }
 
 function initializeForm() {
 
     extractCookies();
-
+    trackIt("ProductionTimer");
     initWorkstationId();
     initWorkCells();
     initNumEmpl();
     initProdNum();
-    /*window.addEventListener('beforeunload', function (ev) {
-        return ev.returnValue = checkProcessing();
-    }); */
+}
+
+function initializeAbout() {
+
+    extractCookies();
+    trackIt("TimerAbout");
+
+}
+
+
+function initializeContact() {
+
+    extractCookies();
+    trackIt("TimerContact");
 }
 
 function setProdNumAccess() {
@@ -184,7 +212,10 @@ function setProdInfo(prodInfo) {
     document.getElementById("PartNumber").innerHTML = prodInfo.ProductNumber;
     document.getElementById("PartDescription").innerHTML = prodInfo.Description;
     document.getElementById("BuildQuantity").innerHTML = prodInfo.Quantity;
-
+    var x;
+    x = Math.ceil(prodInfo.StadardAsyTime / 60000) * prodInfo.Quantity;
+    document.getElementById("lblStdAsyTime").innerHTML = x;
+    document.getElementById("lblStandardTime").innerHTML = "Standard Assembly Time(Minutes)";
 }
 
 
@@ -307,7 +338,7 @@ function endButtonStatus(isActive) {
 function setNumEmpl(numEmpVal) {
     var obj = document.getElementById("tblNumEmplId");
     if (numEmpVal !== "0") {
-        setCookieValue("numEmpl", numEmpVal);
+        setCookieValue("numEmpl", numEmpVal, false);
         /* change the button's color */
         updClassValue(obj, "", "bg-danger");
         var btnLst = document.getElementsByClassName("btnNumEmp");
@@ -471,7 +502,7 @@ function convertReasonId(reasonId) {
     return reasonString;
 }
 
-function startIt() {
+function startTimer() {
 
     // start the elapsed timer
     // ** save the start time
@@ -522,7 +553,7 @@ function checkProcessing() {
 }
 
 
-function endIt() {
+function endTimer() {
     // **set end time
     // **save elapsed time and end time
     // initialize prod num
@@ -550,13 +581,25 @@ function endIt() {
     elapsedTime = 0;
 }
 
+
+function getProdOrder() {
+    var ordid = document.getElementById("txtid").value;
+    var reqSet = { id: ordid, workstationId: "" };
+    // POST reqSet to the web api
+    // In the response check for the return status and set error messages as required
+    // if OK then process the good return value and set the product information
+    sendPostRequest("Get", "GetDebug", reqSet);
+}
+
+
+
 function seedData() {
     sendPostRequest("SeedData", "SeedData", null);
 }
 
 
 function processSeedData() {
-    document.getElementById("place2").innerHTML = "Seeddata completed";
+    //document.getElementById("place2").innerHTML = "Seeddata completed";
 }
 
 
@@ -595,10 +638,22 @@ function createXHR() {
 }
 
 function sendPostRequest(actionSubPath, responseOpt, payLoad) {
+    // Note:
+    //  Post calls must : 
+    //      have the POST type
+    //      include the correct Path
+    //      the JSON data load must match the JSON structure used by the Web Api
+    // Initialize the XHR
     var xhr = createXHR();
     var localURL = uri + actionSubPath;
+
+    // Prepare the data to be sent to the Web API by stringify the JSON structure
     var pl = JSON.stringify(payLoad);
-    document.getElementById("place1").innerHTML = "POST" + " " + localURL + " Payload:" + pl;
+
+    // show development information, unused in production
+    //document.getElementById("place1").innerHTML = "POST" + " " + localURL + " Payload:" + pl;
+
+    // make the REST Post
     if (xhr) {
         xhr.open("POST", localURL, true);
         xhr.setRequestHeader("Content-type", "application/json");
@@ -609,27 +664,16 @@ function sendPostRequest(actionSubPath, responseOpt, payLoad) {
 }
 
 
-function sendPostRequest2(actionSubPath, responseOpt) {
-    var xhr = createXHR();
-    var localURL = uri + actionSubPath;
-    document.getElementById("place1").innerHTML = "POST" + " " + localURL;
-    if (xhr) {
-        xhr.open("POST", localURL, true);
-        xhr.setRequestHeader("Content-type", "application/json");
-        xhr.onreadystatechange = function () { handleResponse(xhr, responseOpt); };
-
-        xhr.send(null);
-    }
-}
-
-
 function sendGetRequest(getRequest, responseOpt) {
-    //var xhr = createXHR();
+    // Initialize the XHR() 
     xhr = createXHR();
     var localURL = uri + getRequest;
-    var testFn = function () { handleResponse(xhr); };
-    document.getElementById("place1").innerHTML = localURL;
-    document.getElementById("place2").innerHTML = "waiting for response";
+
+    // Debug info, unused for production
+    //document.getElementById("place1").innerHTML = localURL;
+    //document.getElementById("place2").innerHTML = "waiting for response";
+
+    // Make the REST Get call
     if (xhr) {
         xhr.open("GET", localURL, true);
         xhr.onreadystatechange = function () { handleResponse(xhr, responseOpt); };
@@ -639,8 +683,12 @@ function sendGetRequest(getRequest, responseOpt) {
 
 
 function handleResponse(xhr, responseOpt) {
+    // handle the response from the Web API
     if (xhr.readyState === 4 && xhr.status === 200) {
-        document.getElementById("place2").innerHTML = xhr.responseText;
+        // show development info, unused during production
+        //document.getElementById("place2").innerHTML = xhr.responseText;
+
+        // based on the request, handle the appriopriate response
         switch (responseOpt) {
             case "GetWorkCells":
                 recievedWorkCells(JSON.parse(xhr.responseText));
@@ -669,26 +717,111 @@ function handleResponse(xhr, responseOpt) {
             case "SeedData":
                 processSeedData();
                 break;
+            case "Track":
+                processTrack();
+                break;
             case "Get":
                 processProdOrd(JSON.parse(xhr.responseText));
                 break;
             default:
-                document.getElementById("place2").innerHTML = xhr.responseText;                
+                var x = 1;
+                //document.getElementById("place2").innerHTML = xhr.responseText;                
         }
     }
     else {
-        document.getElementById("place2").innerHTML = "Ready state = " + xhr.readyState + "   and status = " + xhr.status;
+        //document.getElementById("place2").innerHTML = "Ready state = " + xhr.readyState + "   and status = " + xhr.status;
     }
 }
 
-function getProdOrder() {
-    var ordid = document.getElementById("txtid").value;
-    var reqSet = { id: ordid, workstationId: "" };
-    // POST reqSet to the web api
-    // In the response check for the return status and set error messages as required
-    // if OK then process the good return value and set the product information
-    sendPostRequest("Get", "GetDebug", reqSet);
+
+
+/*
+ * trackIt
+ * This part of the code is used to track the usage of a web page.  For this web page, it is known that the
+ * usage will be very low, however, it is still important that the web owener know how often the web page
+ * is visited and what they are doing while visiting the web page.
+ * 
+ * This function takes advantage of the general system's Web Api that has a REST POST function that will
+ * store tracking information fed to it.  The tacking system only requires 3 bits of information....
+ * Where, What, or the name of the place that is visited.  In other words, the item that is being tracked.
+ * Who is visiting.  This is some type of unique identifier of the user.  This does not have to be the
+ * same id used on multiple visits, but it would be nice.
+ * When did the visit take place.
+ * 
+ * Where is a String value and is passed into the function as the placeName variable.
+ * 
+ * Who is a generated value.  It defaults to the timestamp of when the trackIt funciton is first called.   Timestamp
+ * is used because it uniquly identifies the user, does require too much space, is easily generated.
+ * 
+ * When is a timestamp of when the trackit function is called.\
+ * 
+ * In order to prevent over reporting, a particular place is only recorded once every 10 minutes. 
+ * 
+ * Cookies are used to keep track of the who and the last when values.
+ * 
+ * */
+
+function trackIt(placeName) {
+    // retrieve the When Last used cookie, which is stored as the placeName
+    var whenTSCookie = cookieList[placeName];
+    // check time is the time that will be compared to the current time to determine if a new tracking information
+    // is to be generated and stored.
+    var checkTime;
+
+    // see if the cookie has been set
+    if (!whenTSCookie) {
+        // if it hasn't then set the checkTime value to a value that will force a new tracking record to be created
+        whenTSCookie = Date.now(); 
+        checkTime = whenTSCookie - 11 * 60 * 1000;
+    }
+    else {
+        // if the cookie does exist, then set the check time to the cookies value plus 10 minutes.
+        whenTSCookie = new Date(whenTSCookie);
+        checkTime = new Date(whenTSCookie.setMinutes(whenTSCookie.getMinutes() + 10));
+    }
+    var curTime = new Date();
+    // see if the last visited time is less than the current time, if it has been visited within the last 10 minutes
+    // then do not continue.
+    if (checkTime < curTime) {
+
+        //  see if the WHO cookie has been previously set
+        var whoCookie = cookieList["visitName"];
+        if (!whoCookie) {
+            // if it hasn't then set the WHO value
+            whoCookie = createTrackVisitor();
+        }
+
+        // save the last visited and the who cookies
+        var tsv = curTime.toString();
+        setCookieValue(placeName, tsv, false);
+        setCookieValue("visitName", whoCookie, true);
+
+        // Set the Tracking information data structure
+        var reqTrackingInfo = {
+            place: placeName,
+            who: whoCookie,
+            whenTS: dateToTSString(curTime)
+        };
+        // Post the tracking information to the REST/Web API
+        sendPostRequest("Track", "Track", reqTrackingInfo);
+    }
+
+    function processTrack() {
+        // Nothing is returned by this call, this function is used only as a a
+        //document.getElementById("place2").innerHTML = "Track data set";
+    }
+
+
+    function createTrackVisitor() {
+        // This function returns a unique identifier.  Since this is a rarely visited site, 
+        // a timestamp is perfect way to unquely identifiy the user.
+        // Other values are TCP/IP address, a generated GUID, Computer MAC address, etc
+        // The timestamp is a good choice because it does not require extra software, 
+        // does not take up too nmuch spacem, and does not invade privicy.
+        var dt = new Date();
+        return dateToTSString(dt);
+    }
+
+
+
 }
-
-
-

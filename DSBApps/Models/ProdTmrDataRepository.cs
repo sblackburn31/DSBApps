@@ -19,14 +19,18 @@ namespace DSBApps.Models
             entities = new ProdTimerEntities(); 
             WorkCellRepository = new WorkCellRepository(entities);
             ProductionOrder = new ProductionOrderRepository(entities);
+            DSBBurnGeneral = new DSBBurnGeneralRepository(entities);
         }
 
 
         // This is used by test programs to emulate the database
-        public ProdTmrDataRepository(IProductionOrder po, IWorkCell wc)
+        public ProdTmrDataRepository(IProductionOrder po,
+                                        IWorkCell wc,
+                                        IDSBBurnGeneral dsbBurn)
         {
             ProductionOrder = po;
             WorkCellRepository = wc;
+            DSBBurnGeneral = dsbBurn;
         }
 
         public IWorkCell WorkCellRepository 
@@ -36,6 +40,12 @@ namespace DSBApps.Models
         }
 
         public IProductionOrder ProductionOrder
+        {
+            get;
+            private set;
+        }
+
+        public IDSBBurnGeneral DSBBurnGeneral
         {
             get;
             private set;
