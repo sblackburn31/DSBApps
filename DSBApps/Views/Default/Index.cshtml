@@ -1,6 +1,6 @@
 ﻿@* Author: David Scott Blackburn *@
 @* Project: Demo Application Page *@
-@* Version: 1.0.0 *@
+@* Version: 2.0.0 *@
 @* Purpose: This is the Welcome/Landing Web Page for the dsbburn system *@
 @{
     Layout = null;
@@ -19,6 +19,7 @@
     <link href="~/Content/site.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
 </head>
 
 <body class="landingbackground">
@@ -26,86 +27,127 @@
         @*Now create the main view as defined by the view called.*@
         <div>
             <div class="row">
-                <div class="jumbotron text-center landingbackground">
+                <div class="jumbotron text-center landingbackground welcomeBackground col-xs-12 col-lg-12 col-md-12">
                     <h1>Welcome</h1>
                     <h3>to</h3>
-                    <h2 class="scriptFont">David Scott Blackburn's</h2>
-                    <h1>Demo Application Page</h1>
+                    <h2 class="scriptFont"><em>David Scott Blackburn's</em></h2>
+                    <h4>a SQL Server Database Developer</h4>
+                    <h1>Demo & Portfolio Page</h1>
                 </div>
             </div>
-            <hr />
-            <!-- Start of the carousel -->
-            <h2>Who is David Blackburn?</h2>
-            <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                    <li data-target="#myCarousel" data-slide-to="2"></li>
-                    <li data-target="#myCarousel" data-slide-to="3"></li>
-                    <li data-target="#myCarousel" data-slide-to="4"></li>
-                    <li data-target="#myCarousel" data-slide-to="5"></li>
-                </ol>
-
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner" role="listbox">
-                    <div class="item carouselItem">
-                        <p>
-                            <h4>
-                                A very flexible worker who is able to perform all phases of software development
-                                from analysis, design and requirement gathering; to coding, testing and implementation;
-                                and to documentation, training and support.
-                            </h4>
-                        </p>
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">David Blackburn's Portfolio</a>
                     </div>
-                    <div class="item active carouselItem">
-                        <p>
-                            <h4>
-                                Energetic programmer analyst experienced in developing robust code
-                                for high-volume businesses.
-                            </h4>
-                        </p>
-                    </div>
-                    <div class="item carouselItem">
-                        <p>
-                            <h4>Increased customer base by 10% for an online bill pay application.</h4>
-                        </p>
-                    </div>
-                    <div class="item carouselItem">
-                        <p>
-                            <h4>
-                                Improved performance and reliability, while reducing support cost by 40%
-                                of a nationwide complex critical system.
-                            </h4>
-                        </p>
-                    </div>
-                    <div class="item carouselItem">
-                        <p>
-                            <h4>A naturally analytical person with strong problem-solving skills.</h4>
-                        </p>
-                    </div>
-                    <div class="item carouselItem">
-                        <p>
-                            <h4>
-                                A friendly, dedicated worker able to work alone with little supervision or as an active
-                                team member who shows initiative and able to do what it takes to get the job done!
-                            </h4>
-                        </p>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("About", "About", "Default")</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Default")</li>
+                            <li>@Html.ActionLink("Profiles & Services", "Profiles", "Default")</li>
+                            <li>@Html.ActionLink("Gallery", "Gallery", "Default")</li>
+                            <li>@Html.ActionLink("Blogs & Docs", "Documents", "Default")</li>
+                            <li>@Html.ActionLink("Interactive Resume", "GetResume", "Default")</li>
+                        </ul>
                     </div>
                 </div>
+            </nav>
 
-                <!-- Left and right controls -->
-                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
+            <div class="row">
+
+                <div class="col-sm-3">
+                    <img src="~/Images/MyPhoto.jpg" class="img-circle img-responsive" alt="My Photo">
+                    <p>Providing Database, Web, and other software development.</p>
+                    <p>Freelancer, also available for full time hire or contract work.</p>
+                </div>
+                <div class="col-sm-9">
+                    <h2>Who is David Blackburn?</h2>
+                    <!-- Start of the carousel -->
+                    <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                            <li data-target="#myCarousel" data-slide-to="3"></li>
+                            <li data-target="#myCarousel" data-slide-to="4"></li>
+                            <li data-target="#myCarousel" data-slide-to="5"></li>
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active carouselItem">
+                                <p>
+                                    <h4>
+                                        A very flexible worker who is able to perform all phases of software development
+                                        from analysis, design and requirement gathering; to coding, testing and implementation;
+                                        and to documentation, training and support.
+                                    </h4>
+                                </p>
+                            </div>
+                            <div class="item carouselItem">
+                                <p>
+                                    <h4>
+                                        Increased customer base by 10% for an online bill pay application;
+                                    </h4>
+                                </p>
+                            </div>
+                            <div class="item carouselItem">
+                                <p>
+                                    <h4>
+                                        Improved performance and reliability, while reducing support cost by 40%
+                                        of a nationwide complex critical system.
+                                    </h4>
+                                </p>
+                            </div>
+                            <div class="item carouselItem">
+                                <p>
+                                    <h4>
+                                        Energetic programmer analyst experienced in developing robust code
+                                        for high-volume businesses.
+                                    </h4>
+                                </p>
+                            </div>
+                            <div class="item carouselItem">
+                                <p>
+                                    <h4>A naturally analytical person with strong problem-solving skills.</h4>
+                                </p>
+                            </div>
+                            <div class="item carouselItem">
+                                <p>
+                                    <h4>
+                                        A friendly, dedicated worker able to work alone with little supervision or as an active
+                                        team member who shows initiative and able to do what it takes to get the job done!
+                                    </h4>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                    <div class="text-center">
+                        @Html.ActionLink("Comment or Contact", "Contact", null, new { @class = "btn  btn-primary" })
+                    </div>
+                    <div class="text-center">
+                        @Html.ActionLink("Download Resume", "DownloadResume", "Default", new { @class = "btn  btn-primary" })
+                    </div>
+                </div>
+                <!-- end of the carousel -->
+
             </div>
-            <!-- end of the carousel -->
-
             <hr />
             <div class="row">
                 <div class="col-sm-6">
@@ -178,12 +220,56 @@
                     </div>
                 </div>
             </div>
+            <hr />
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="text-center">
+                        <a href="/Default/Profiles">
+                            <img src="~/Images/MyProfiles.png" height="100" width="100">
+                        </a>
+                    </div>
+                    <div class="text-center">
+                        @Html.ActionLink("Profiles & Services", "Profiles", null, new { @class = "btn  btn-primary" })
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="text-center">
+                        <a href="/Default/Gallery">
+                            <img src="~/Images/MyGallery.jpg" height="100" width="100">
+                        </a>
+                    </div>
+                    <div class="text-center">
+                        @Html.ActionLink("Portfollio Gallery", "Gallery", null, new { @class = "btn  btn-primary" })
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="text-center">
+                        <a href="/Default/Documents">
+                            <img src="~/Images/MyBlogDoc.jpg" height="100" width="100">
+                        </a>
+                    </div>
+                    <div class="text-center">
+
+                        @Html.ActionLink("Blogs & Documents", "Documents", null, new { @class = "btn  btn-primary" })
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="text-center">
+                        <a href="/Default/GetResume">
+                            <img src="~/Images/MyResume2.png" height="100" width="100">
+                        </a>
+                    </div>
+                    <div class="text-center">
+                        @Html.ActionLink("View Resume", "GetResume", null, new { @class = "btn  btn-primary" })
+                    </div>
+                </div>
+                </div>
+            <hr />
+            @*Show the standard footer.*@
+            <footer>
+                <p><h6>&copy; @DateTime.Now.Year - Sample ASP.NET MVC 5 Application.</h6></p>
+            </footer>
         </div>
-        <hr />
-        @*Show the standard footer.*@
-        <footer>
-            <p><h6>&copy; @DateTime.Now.Year - Sample ASP.NET MVC 5 Application.</h6></p>
-        </footer>
     </div>
 
     <script>

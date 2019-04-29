@@ -83,6 +83,14 @@ warning 6002: The table/view 'davidBBurn22_Notebooks.dbo.vProdOrdInfo' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="addContactInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Pname" Type="nvarchar" Mode="In" />
+          <Parameter Name="Pemail" Type="nvarchar" Mode="In" />
+          <Parameter Name="Pcomment" Type="nvarchar" Mode="In" />
+          <Parameter Name="PvisitorType" Type="nvarchar" Mode="In" />
+          <Parameter Name="Pwho" Type="nvarchar" Mode="In" />
+          <Parameter Name="Prating" Type="smallint" Mode="In" />
+        </Function>
         <Function Name="addTrackingInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="place" Type="nvarchar" Mode="In" />
           <Parameter Name="who" Type="nvarchar" Mode="In" />
@@ -241,6 +249,14 @@ warning 6002: The table/view 'davidBBurn22_Notebooks.dbo.vProdOrdInfo' does not 
             <Parameter Name="place" Mode="In" Type="String" />
             <Parameter Name="who" Mode="In" Type="String" />
             <Parameter Name="when" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="addContactInfo">
+            <Parameter Name="Pname" Mode="In" Type="String" />
+            <Parameter Name="Pemail" Mode="In" Type="String" />
+            <Parameter Name="Pcomment" Mode="In" Type="String" />
+            <Parameter Name="PvisitorType" Mode="In" Type="String" />
+            <Parameter Name="Pwho" Mode="In" Type="String" />
+            <Parameter Name="Prating" Mode="In" Type="Int16" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="clearProductionData_Result">
@@ -437,6 +453,7 @@ warning 6002: The table/view 'davidBBurn22_Notebooks.dbo.vProdOrdInfo' does not 
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="addTrackingInfo" FunctionName="ProdTimerModel.Store.addTrackingInfo" />
+          <FunctionImportMapping FunctionImportName="addContactInfo" FunctionName="ProdTimerModel.Store.addContactInfo" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

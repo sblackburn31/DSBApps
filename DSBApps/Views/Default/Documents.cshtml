@@ -1,0 +1,78 @@
+﻿@* Author: David Scott Blackburn *@
+@* Project: Demo Application Page *@
+@* Version: 1.0.0 *@
+@* Purpose: This is the Blogs & Documents Link Web Page for the dsbburn system *@
+@{
+    ViewBag.Title = "Blogs & Docs";
+    ViewBag.Description = "These are links to blogs, the github and some documents.";
+    Layout = "~/Views/Shared/_Common.cshtml";
+}
+<h2>@ViewBag.Title.</h2>
+
+<div class="row">
+    <div class="col-xs-offset-1 col-xs-11">
+        <h3>Blogs</h3>
+        <h4>From the Programmers Cube Blog located in my Linked In account.</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-offset-2 col-xs-10">
+        <div>
+            <a href="https://www.linkedin.com/feed/update/urn:li:activity:6487824996335960064" title="Go to David Blackburn's 4th Blog">
+                From the Programmer's Cubical #4 - Demo Application Page
+            </a>
+        </div>
+        <div>
+            <a href="https://www.linkedin.com/feed/update/urn:li:activity:6465039989750194176" title="Go to David Blackburn's 3rd Blog">
+                From the Programmer's Cubical #3 - Design: Further refining the Requirements
+            </a>
+        </div>
+        <div>
+            <a href="https://www.linkedin.com/feed/update/urn:li:activity:6459488582599012352" title="Go to David Blackburn's 2nd Blog">
+                From the Programmer's Cubical #2 - Analysis: Turning an Idea into Requirements
+            </a>
+        </div>
+        <div>
+            <a href="https://www.linkedin.com/feed/update/urn:li:activity:6421075008365350912" title="Go to David Blackburn's First Blog">
+                From the Programmer's Cubical #1 - What's This About?
+            </a>
+        </div>
+    </div>
+
+<div class="row">
+    <div class="col-xs-offset-1 col-xs-11">
+        <h3>Source Code</h3>
+        <h4>All of the source code used in this project is located in my GitHub</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-offset-2 col-xs-10">
+        <a href="https://github.com/sblackburn31" title="Go to David Blackburn's Git Hub">
+            <img src="~/Images/github.png" alt="GitHub" style="width:128px;height:128px;border:0;margin:15px;">
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-offset-1 col-xs-11">
+        <h3>Articles/Documents</h3>
+        <h4>Here are two examples of my writing that explains how parts of the Production Timer App work.</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-offset-2 col-xs-10">
+        <div>
+            <a href="~/Documents/Production Timer Client.pdf" title="This document explains how AJAX technologies were implimented for the Production Timer app.">
+                Production Timer Client
+            </a>
+        </div>
+        <div>
+            <a href="~/Documents/Production Timer Web API.pdf" title="This document explains the design and setup of the Production Timer API">
+                Production Timer Web API
+            </a>
+        </div>
+    </div>
+</div>
+
+
+

@@ -5,8 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b6cd5f83aa3f40a882c9eae7c87aae01" Name="Diagram1" DisplayType="true">
-        <EntityTypeShape EntityType="ProdTimerModel.WorkCell" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProdTimerModel.vProdOrdInfo" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProdTimerModel.WorkCell" Width="1.5" PointX="1.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProdTimerModel.vProdOrdInfo" Width="1.5" PointX="3.5" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ProdTimerModel.Note" Width="2.375" PointX="0.75" PointY="1" />
         <EntityTypeShape EntityType="ProdTimerModel.NoteBook" Width="2.75" PointX="5.25" PointY="1.125" />
         <AssociationConnector Association="ProdTimerModel.FK_Note_ToNoteBook" />

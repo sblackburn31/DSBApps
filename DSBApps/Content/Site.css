@@ -24,7 +24,12 @@ body {
 
 /* Set the general background for the landing page*/
 .landingbackground {
-    background-color:teal;
+    background-color: teal;
+}
+
+.welcomeBackground {
+    background-image: url('../Images/welcome1.jpg');
+    color: white;
 }
 
 .scriptFont {
