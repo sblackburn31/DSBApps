@@ -1,8 +1,7 @@
-﻿/// <project>DSB Demo App</project>
+﻿/// <project>Production Timer App</project>
 /// <Version>2.0.0</Version>
 /// <author>David Scott Blackburn</author>
 /// <summary>
-/// These are models required for the DSB Deno App's Web API
 /// </summary>
 using System;
 using System.Collections.Generic;
@@ -60,15 +59,5 @@ namespace DSBApps.Models.ViewModels
         public string Place { get; set; }
         public string Who { get; set; }
         public string WhenTS { get; set; }
-    }
-
-    public class ReqContactInfo
-    {
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Comment { get; set; }
-        public string VistorType { get; set; }
-        public string Who { get; set; }
-        public Int16 Rating { get; set; }
     }
 }

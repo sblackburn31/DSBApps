@@ -154,14 +154,5 @@ namespace DSBApps.Controllers
             return 0;
         }
 
-        // POST api/ProductionTimer/ContactInformation
-        [HttpPost]
-        [ActionName("ContactInformation")]
-        public int PostAddContactInfo([FromBody]ReqContactInfo theValue)
-        {
-            dataRepo.DSBBurnGeneral.AddContactInfo(theValue);
-            return 0;
-        }
-
     }
 }

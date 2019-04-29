@@ -177,34 +177,5 @@ namespace DSBApps.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addTrackingInfo", placeParameter, whoParameter, whenParameter);
         }
-    
-        public virtual int addContactInfo(string pname, string pemail, string pcomment, string pvisitorType, string pwho, Nullable<short> prating)
-        {
-            var pnameParameter = pname != null ?
-                new ObjectParameter("Pname", pname) :
-                new ObjectParameter("Pname", typeof(string));
-    
-            var pemailParameter = pemail != null ?
-                new ObjectParameter("Pemail", pemail) :
-                new ObjectParameter("Pemail", typeof(string));
-    
-            var pcommentParameter = pcomment != null ?
-                new ObjectParameter("Pcomment", pcomment) :
-                new ObjectParameter("Pcomment", typeof(string));
-    
-            var pvisitorTypeParameter = pvisitorType != null ?
-                new ObjectParameter("PvisitorType", pvisitorType) :
-                new ObjectParameter("PvisitorType", typeof(string));
-    
-            var pwhoParameter = pwho != null ?
-                new ObjectParameter("Pwho", pwho) :
-                new ObjectParameter("Pwho", typeof(string));
-    
-            var pratingParameter = prating.HasValue ?
-                new ObjectParameter("Prating", prating) :
-                new ObjectParameter("Prating", typeof(short));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addContactInfo", pnameParameter, pemailParameter, pcommentParameter, pvisitorTypeParameter, pwhoParameter, pratingParameter);
-        }
     }
 }

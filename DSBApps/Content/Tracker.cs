@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Web.SessionState;
 using System.Threading.Tasks;
 using DSBApps.Models.ViewModels;
 
@@ -43,18 +42,16 @@ namespace DSBApps.Content
     /// </remarks>
     public class Tracker
     {
-        // Change spot
         // development value
-        const string baseuri = "http://localhost:53915/api/ProductionTimer/";
+        //const string baseuri = "'http://localhost:53915/api/ProductionTimer/";
 
         // Production value
-        //const string baseuri = "http://www.dsbburn.com/api/ProductionTimer/";
+        const string baseuri = "http://www.dsbburn.com/api/ProductionTimer/";
 
         const string timestampFormat = "yyyy-MM-dd HH:mm:ss.ffff";
-        const string whoKeyId = "visitName";
+        const string whoCoookieId = "visitName";
         HttpRequestBase Request;
         HttpResponseBase Response;
-        
         string placeId;
         string whoId;
         string whenTS;
@@ -62,7 +59,6 @@ namespace DSBApps.Content
 
         public Tracker(HttpRequestBase req, HttpResponseBase res)
         {
-            
             Request = req;
             Response = res;
         }
@@ -76,7 +72,6 @@ namespace DSBApps.Content
             DateTime curTime = DateTime.Now;
 
             HttpCookie lastTrackedCookie;
-            
             if (Request.Cookies[appName] != null)
             {
                 lastTrackedCookie = Request.Cookies[appName];
@@ -96,8 +91,19 @@ namespace DSBApps.Content
             }
             if (lastTracked.AddMinutes(ltOffset) < curTime)
             {
-
-                whoId = SetWhoId();
+                HttpCookie whoCookie;
+                if (Request.Cookies[whoCoookieId] != null)
+                {
+                    whoCookie = Request.Cookies[whoCoookieId];
+                    whoId = whoCookie.Value;
+                }
+                else
+                {
+                    whoId = SetWhoIdentifier();
+                    whoCookie = new HttpCookie(whoCoookieId, whoId);
+                    whoCookie.Expires = DateTime.Now.AddYears(1);
+                    Response.AppendCookie(whoCookie);
+                }
                 lastTrackedCookie.Value = curTime.ToString(timestampFormat);
                 Response.SetCookie(lastTrackedCookie);
 
@@ -118,37 +124,7 @@ namespace DSBApps.Content
             }
         }
 
-        string SetWhoId()
-        {
-            string rval;
-            HttpCookie whoCookie;
-
-            HttpSessionState SessionState = HttpContext.Current.Session;
-            if (SessionState[whoKeyId] != null)
-            {
-                rval = SessionState[whoKeyId].ToString();
-            }
-            else
-            {
-                
-                if (Request.Cookies[whoKeyId] != null)
-                {
-                    whoCookie = Request.Cookies[whoKeyId];
-                    rval = whoCookie.Value;
-                }
-                else
-                {
-                    rval = CreateWhoId();
-                    whoCookie = new HttpCookie(whoKeyId, rval);
-                    whoCookie.Expires = DateTime.Now.AddYears(1);
-                    Response.AppendCookie(whoCookie);
-                }
-                SessionState[whoKeyId] = rval;
-            }
-            return rval;
-        }
-
-        string CreateWhoId()
+        string SetWhoIdentifier()
         {
             // This function returns a unique identifier.  Since this is a rarely visited site, 
             // a timestamp is perfect way to unquely identifiy the user.
@@ -181,43 +157,5 @@ namespace DSBApps.Content
                 }
             }
         } 
-    }
-
-    public class ContactInformation
-    {
-        public void addContactInformation(ReqContactInfo contactInfo)
-        {
-            // Make the POST REST call to add tracking data to the database
-            WriteDataDirect(contactInfo);
-        }
-        /// <summary>
-        /// POST REST call to ContactInformation.  This adds ContactInformation to the ContactInformation table.
-        /// </summary>
-        /// <param name="contactInfo">This is Request data structure that is passed to the ContactInformation POST REST call</param>
-        void WriteDataDirect(ReqContactInfo contactInfo)
-        {
-            // Change spot
-            // development value
-            const string baseuri = "http://localhost:53915/api/ProductionTimer/";
-
-            // Production value
-            //const string baseuri = "http://www.dsbburn.com/api/ProductionTimer/";
-
-            using (var client = new HttpClient())
-            {
-                // This is where the Web API is located.
-                client.BaseAddress = new Uri(baseuri);
-
-                //HTTP Make the POST REST call, this is equivalate to an AJAX call
-                var postTask = client.PostAsJsonAsync<ReqContactInfo>("ContactInformation", contactInfo);
-                postTask.Wait();
-
-                var result = postTask.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    // Normally here is where the result is processed
-                }
-            }
-        }
     }
 }

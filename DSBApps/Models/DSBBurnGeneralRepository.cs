@@ -31,15 +31,5 @@ namespace DSBApps.Models
         {
             entities.addTrackingInfo(trackingData.Place, trackingData.Who, trackingData.WhenTS);
         }
-
-        public void AddContactInfo(ReqContactInfo contactInfo)
-        {
-            entities.addContactInfo(contactInfo.Name,
-                                    contactInfo.Email,
-                                    contactInfo.Comment,
-                                    contactInfo.VistorType,
-                                    contactInfo.Who,
-                                    contactInfo.Rating );
-        }
     }
 }
