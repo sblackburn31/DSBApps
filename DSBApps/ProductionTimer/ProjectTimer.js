@@ -630,8 +630,9 @@ function updateElapsedTime() {
  * 
  **************************************************************************************/
 
-var uri = 'http://www.dsbburn.com/api/ProductionTimer/';
-//var uri = 'http://localhost:53915/api/ProductionTimer/';
+// Change spot
+//var uri = 'http://www.dsbburn.com/api/ProductionTimer/';
+var uri = 'http://localhost:53915/api/ProductionTimer/';
 
 function createXHR() {
     return new XMLHttpRequest();
@@ -762,13 +763,13 @@ function handleResponse(xhr, responseOpt) {
  * */
 
 function trackIt(placeName) {
-    // retrieve the When Last used cookie, which is stored as the placeName
+    // retrieve the When Last Used cookie, which is stored as the placeName
     var whenTSCookie = cookieList[placeName];
     // check time is the time that will be compared to the current time to determine if a new tracking information
     // is to be generated and stored.
     var checkTime;
 
-    // see if the cookie has been set
+    // see if the When Last Used cookie has been set
     if (!whenTSCookie) {
         // if it hasn't then set the checkTime value to a value that will force a new tracking record to be created
         whenTSCookie = Date.now(); 
@@ -785,21 +786,17 @@ function trackIt(placeName) {
     if (checkTime < curTime) {
 
         //  see if the WHO cookie has been previously set
-        var whoCookie = cookieList["visitName"];
-        if (!whoCookie) {
-            // if it hasn't then set the WHO value
-            whoCookie = createTrackVisitor();
-        }
+        var visitorId = retrieveVisitorId();
 
         // save the last visited and the who cookies
         var tsv = curTime.toString();
         setCookieValue(placeName, tsv, false);
-        setCookieValue("visitName", whoCookie, true);
+        setCookieValue("visitName", visitorId, true);
 
         // Set the Tracking information data structure
         var reqTrackingInfo = {
             place: placeName,
-            who: whoCookie,
+            who: visitorId,
             whenTS: dateToTSString(curTime)
         };
         // Post the tracking information to the REST/Web API
@@ -807,8 +804,41 @@ function trackIt(placeName) {
     }
 
     function processTrack() {
-        // Nothing is returned by this call, this function is used only as a a
+        // Nothing is returned by this call, this function is used only a placeholder
         //document.getElementById("place2").innerHTML = "Track data set";
+    }
+
+
+    function retrieveVisitorId() {
+        // check to see if the client's browser supports the DOM Storage
+        // If not then the old way of retrieval of the visitor Id will be still be used
+        // otherwise if it used then use the new way.
+        var vId;
+        var key = "visitName";
+        if (typeof(Storage) !== "undefined") {
+            vId = localStorage.getItem(key);
+            if (!vId) {
+                vId = cookieList[key];
+                if (!vId) {
+                    // if it hasn't then set the WHO value
+                    vId = createTrackVisitor();
+                }
+                localStorage.setItem(key, vId);
+            }
+        } else {
+            vId = cookieList[key];
+            if (!vId) {
+                // if it hasn't then set the WHO value
+                vId = createTrackVisitor();
+            }
+        }
+
+
+
+
+
+
+        return vId;
     }
 
 

@@ -18,5 +18,6 @@ namespace DSBApps.Models
     {
         void SeedData();
         void AddTrackingInfo(ReqTrackingInfo trackingData);
+        void AddContactInfo(ReqContactInfo contactInfo);
     }
 }

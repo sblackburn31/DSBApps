@@ -1,0 +1,51 @@
+﻿@* Author: David Scott Blackburn *@
+@* Project: Demo Application Page *@
+@* Version: 1.0.0 *@
+@* Purpose:  Common functionality for the Welcome Pages sub-pages*@
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="@ViewBag.Description">
+    <meta name="author" content="David Scott Blackburn">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - David Blackburn's Demo & Portfolio</title>
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/site.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+    @*
+        *   This draws the top menu displayed in the project.  It uses
+        *   bootstrap to handle the look and feel of the app.
+        *   This was designed to show the menu icon if the
+        *   top menu items could not be displyed due to the width of the
+        *   browser screen
+    *@
+    @* This defines the menu appearance *@
+    @Html.Partial("_DisplayDefaultMenu")
+    <div  class="container body-content">
+        @*Now create the main view as defined by the view called.*@
+        @RenderBody()
+        <hr />
+
+        @*Show the standard footer.*@
+        <footer>
+            <p><h6>&copy; @DateTime.Now.Year - Sample ASP.NET MVC 5 Application.</h6></p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
